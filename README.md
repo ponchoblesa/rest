@@ -1,2 +1,2 @@
 # rest
-Simple REST service with Node.js
+Simple REST service with Node.js and MongoDB
