@@ -1,0 +1,16 @@
+{
+	"name": "node-api-rest-example",
+	"author": "Alfonso Blesa <ponchoblesa@gmail.com>",
+	"version": "1.0.0",
+	"description": "One REST example",
+	"repository": {
+  		"type": "git",
+  		"url": "https://github.com/ponchoblesa/rest.git"
+	},
+	"dependences": {
+		"mongoose": "~3.6.11",
+		"express": "^4.7.1",
+		"method-override":"^2.1.2",
+		"body-parser":"^1.5.1"
+	}
+}
