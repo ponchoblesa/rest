@@ -7,7 +7,7 @@
   		"type": "git",
   		"url": "https://github.com/ponchoblesa/rest.git"
 	},
-	"dependences": {
+	"dependencies": {
 		"mongoose": "~3.6.11",
 		"express": "^4.7.1",
 		"method-override":"^2.1.2",
