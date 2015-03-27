@@ -8,7 +8,7 @@ exports.findAllTVShows = function(req, res) {
 		if(err) res.send(500, err.message);
 
 		console.log('GET /tvshows');
-		res.status(200).jsonp(tvshows);
+		res.status(200).jsonp({tvshows: tvshows});
 	});
 };
 
@@ -26,37 +26,49 @@ exports.findById = function(req, res) {
 exports.addTVShow = function(req, res) {
 	console.log('POST');
 	console.log(req.body);
+	var jQuery = false;
+	if(req.body.tvshow === undefined){
+		req.body.tvshow = req.body;
+		jQuery = true;
+	}
 
 	var tvshow = new TVShow({
-		title: 		req.body.title,
-		year: 		req.body.year,
-		country:	req.body.country,
-		poster:		req.body.poster,
-		seasons: 	req.body.seasons,
-		genre: 		req.body.genre,
-		summary: 	req.body.summary,
+		title: 		req.body.tvshow.title,
+		year: 		req.body.tvshow.year,
+		country:	req.body.tvshow.country,
+		poster:		req.body.tvshow.poster,
+		seasons: 	req.body.tvshow.seasons,
+		genre: 		req.body.tvshow.genre,
+		summary: 	req.body.tvshow.summary,
 	});
 
 	tvshow.save(function(err, tvshow) {
 		if (err) return res.status(500).send(err.message);
-		res.status(200).jsonp(tvshow);
+		if (jQuery) res.status(200).jsonp(tvshow);
+		else		res.status(200).jsonp({tvshow: tvshow});
 	});
 };
 
 //PUT - Update a register already exists
 exports.updateTVShow = function(req, res) {
+	var jQuery = false;
 	TVShow.findById(req.params.id, function(err, tvshow) {
-		tvshow.title = req.body.title;
-		tvshow.year = req.body.year;
-		tvshow.country = req.body.country;
-		tvshow.poster = req.body.poster;
-		tvshow.seasons = req.body.seasons;
-		tvshow.genre = req.body.genre;
-		tvshow.summary = req.body.summary;
+		if(req.body.tvshow === undefined){
+			req.body.tvshow = req.body;
+			jQuery = true;
+		}
+		tvshow.title = req.body.tvshow.title;
+		tvshow.year = req.body.tvshow.year;
+		tvshow.country = req.body.tvshow.country;
+		tvshow.poster = req.body.tvshow.poster;
+		tvshow.seasons = req.body.tvshow.seasons;
+		tvshow.genre = req.body.tvshow.genre;
+		tvshow.summary = req.body.tvshow.summary;
 
 		tvshow.save(function(err) {
 			if (err) return res.status(500).send(err.message);
-			res.status(200).jsonp(tvshow);
+			if (jQuery) res.status(200).jsonp(tvshow);
+			else		res.status(200).jsonp({tvshow: tvshow});
 		});
 	});
 };
